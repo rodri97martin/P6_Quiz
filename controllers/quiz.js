@@ -239,7 +239,7 @@ exports.randomplay = (req, res, next) => {
         .then(quiz => {
 
             if (quiz){
-                req.session.toBePlayed.push(quiz.id);
+
                 res.render('quizzes/random_play', {score, quiz});
             } else {
                 delete req.session.toBePlayed;
@@ -260,6 +260,7 @@ exports.randomcheck = (req, res, next) => {
     if (quiz.answer.trim().toLowerCase() === answer.trim().toLowerCase()){
         req.session.score++;
         score = req.session.score;
+        req.session.toBePlayed.push(quiz.id);
         req.session.result = true;
     } else {
         delete req.session.toBePlayed;
